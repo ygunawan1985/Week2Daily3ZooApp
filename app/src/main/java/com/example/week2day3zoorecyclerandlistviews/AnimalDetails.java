@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.week2day3zoorecyclerandlistviews.filestorage.InternalFileStorage;
+
+import java.util.Locale;
 
 public class AnimalDetails extends AppCompatActivity {
 
@@ -16,6 +21,7 @@ public class AnimalDetails extends AppCompatActivity {
     TextView tvDescription;
     Button btnSound;
     String mpSound;
+    InternalFileStorage internalFileStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +41,22 @@ public class AnimalDetails extends AppCompatActivity {
             tvCategory.setText(animal.getCategory());
             tvDescription.setText(animal.getDescription());
             mpSound = animal.getSound();
+            saveAnimalToInternalFileStorage(animal);
         }
 
     }
+
+    private void saveAnimalToInternalFileStorage(Animal passedAnimal){
+        try{
+            internalFileStorage = new InternalFileStorage("fav_animals.txt");
+            final String stringToSaveToFile = String.format(Locale.US, "{\"animal\": \"%s\", \"category\" : \"%s\"}", passedAnimal.getName(), passedAnimal.getCategory());
+            internalFileStorage.writeToFile(this, stringToSaveToFile);
+            internalFileStorage = null;
+        } catch (Exception e){
+            Log.e("TAG", "saveAnimalToInternalFileStorage", e);
+        }
+    }
+
 
     public void onClick(View view) {
         playSong(mpSound);

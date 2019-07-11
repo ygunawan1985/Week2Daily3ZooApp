@@ -5,7 +5,7 @@ import java.util.Locale;
 public class ZooDatabaseContract {
 
     public static final String DATABASE_NAME = "zoo_db";
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 9;
     public static final String TABLE_NAME = "animal_table";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_CATEGORY = "category";

@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.week2day3zoorecyclerandlistviews.filestorage.InternalFileStorage;
 
 public class CategoriesListView extends AppCompatActivity {
 
@@ -75,7 +78,18 @@ public class CategoriesListView extends AppCompatActivity {
 
         });
 
+        printFileToLogcat();
+    }
 
+    private void printFileToLogcat(){
+
+        try {
+            InternalFileStorage internalFileStorage = new InternalFileStorage("fav_animals.txt");
+            Log.d("TAG", "printFileToLogcat: " + internalFileStorage.readFromFile(this));
+            internalFileStorage = null;
+        } catch(Exception e){
+            Log.e("TAG", "printFileToLogcat: ", e);
+        }
     }
 
 //    private void setCategoryInSharedPref(String category){
